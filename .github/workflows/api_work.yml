@@ -31,9 +31,3 @@ jobs:
     - name: Set output image tag
       id: set_output
       run: echo "::set-output name=image_tag::main-${{ github.sha }}"
-      
-
-
-   
-      - name: Deploy apps
-        run: kubectl apply -f frontend.yml *)
