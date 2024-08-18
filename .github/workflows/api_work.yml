@@ -33,7 +33,6 @@ jobs:
 #       run: echo "::set-output name=image_tag::main-${{ github.sha }}"
 
 
-
   deploy:
     runs-on: ubuntu-latest
 
@@ -51,17 +50,12 @@ jobs:
         with:
           version: "v1.24.0"
 
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v1
-        with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
-          export_default_credentials: true
+      - name: Decode and Save Service Account Key
+        run: |
+          echo "${{ secrets.GCP_SA_KEY }}" | sed 's/\\n/\n/g' > $HOME/gcloud-key.json
 
       - name: Authenticate Service Account
-        run: |
-          echo "${{ secrets.GCP_SA_KEY }}" > $HOME/gcloud-key.json
-          gcloud auth activate-service-account --key-file=$HOME/gcloud-key.json
+        run: gcloud auth activate-service-account --key-file=$HOME/gcloud-key.json
 
       - name: Verify Authentication
         run: gcloud auth list
@@ -73,3 +67,7 @@ jobs:
         run: |
           kubectl apply -f time-api.yaml 
           kubectl apply -f nodeport.yaml
+
+  
+  
+    
