@@ -5,6 +5,7 @@ on:
     branches: [ "main" ] 
 
 env:
+  PROJECT_ID: supple-defender-349711
   CLUSTER_NAME: autopilot-cluster-1
   ZONE: us-east1-b
     
