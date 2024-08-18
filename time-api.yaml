@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: api-pod
+  labels:
+    app: api
+spec:
+  containers:
+  - name: api-container
+    image: onyeechris/time-api:1.0
+    ports:
+    - containerPort: 3000
