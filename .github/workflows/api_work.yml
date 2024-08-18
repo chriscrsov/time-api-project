@@ -71,7 +71,8 @@ jobs:
       #   run: sed -i 's|onyeechris/post-frontend:latest|onyeechris/post-frontend:${{ env.IMAGE_TAG }}|' frontend.yml
       
       - name: Deploy apps
-        run: kubectl apply -f time-api.yaml 
-        run: kubectl apply -f nodeport.yaml 
+        run: 
+          kubectl apply -f time-api.yaml 
+          kubectl apply -f nodeport.yaml 
         
 
