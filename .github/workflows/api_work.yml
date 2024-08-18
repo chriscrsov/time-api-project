@@ -57,7 +57,7 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           export_default_credentials: true
-          aws-region: us-east-1
+          # aws-region: us-east-1
           
       - name: Get GKE credentials
         run: gcloud container clusters get-credentials autopilot-cluster-1 --zone us-east1-b --project ${{ secrets.GCP_PROJECT_ID }}
