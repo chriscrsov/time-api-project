@@ -52,10 +52,9 @@ jobs:
       - name: Configure kubectl
         run: |
           gcloud config set project $PROJECT_ID
-	        gcloud config set compute/zone $ZONE
-	        gcloud container clusters get-credentials $CLUSTER_NAME
+          gcloud config set compute/zone $ZONE
+          gcloud container clusters get-credentials $CLUSTER_NAME
 
       - name: Deploy apps
         run: |
-          kubectl apply -f time-api.yaml 
-          kubectl apply -f nodeport.yaml
+          kubectl apply -f time-api.yaml
