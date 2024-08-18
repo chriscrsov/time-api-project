@@ -51,6 +51,10 @@ jobs:
          version: "v1.24.0"
         id: install
 
+      - name: Clear gcloud credentials
+        run: gcloud auth revoke --all
+
+
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
         with:
