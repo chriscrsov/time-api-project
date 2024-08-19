@@ -7,7 +7,7 @@ on:
 env:
   PROJECT_ID: supple-defender-349711
   CLUSTER_NAME: autopilot-cluster-1
-  ZONE: us-central1
+  ZONE: us-central1-a
     
 jobs:
 #   build:
