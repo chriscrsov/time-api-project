@@ -67,6 +67,9 @@ jobs:
           gcloud config set compute/zone ${{ secrets.GCP_ZONE }}
           gcloud container clusters get-credentials ${{ secrets.GCP_CLUSTER_NAME }}
 
+      - name: Set IMAGE_TAG environment variable
+        run: echo "IMAGE_TAG=main-${{ github.sha }}" >> $GITHUB_ENV
+        
       - name: Replace image tag in deployment file
         run: sed -i 's|onyeechris/time-api:latest|onyeechris/time-api:${{ env.IMAGE_TAG }}|' time-api.yaml
       
