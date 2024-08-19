@@ -7,6 +7,6 @@ metadata:
 spec:
   containers:
     - name: api-container
-      image: onyeechris/time-api:1.0
+      image: onyeechris/time-api:latest
       ports:
         - containerPort: 3000
