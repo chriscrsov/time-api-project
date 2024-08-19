@@ -56,7 +56,15 @@ jobs:
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
+      - name: Install gke-gcloud-auth-plugin
+        run: |
+          sudo apt-get update
+          sudo apt-get install google-cloud-sdk-gke-gcloud-auth-plugin
+
       - name: Configure gcloud
         run: |
           gcloud config set compute/zone ${{ secrets.GCP_ZONE }}
           gcloud container clusters get-credentials ${{ secrets.GCP_CLUSTER_NAME }}
+
+      - name: Test kubectl access
+        run: kubectl get nodes
