@@ -68,6 +68,6 @@ jobs:
 
       - name: Deploy apps
         run: |
-          kubectl apply -f time-api.yml 
-          kubectl apply -f nodeport.yml 
+          kubectl apply -f time-api.yaml 
+          kubectl apply -f nodeport.yaml 
 
