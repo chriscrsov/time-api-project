@@ -4,42 +4,43 @@ on:
   push:
     branches: [ "main" ] 
 
-env:
-  PROJECT_ID: supple-defender-349711
-  CLUSTER_NAME: autopilot-cluster-1
-  ZONE: us-central1-a
+# env:
+#   PROJECT_ID: supple-defender-349711
+#   CLUSTER_NAME: autopilot-cluster-1
+#   ZONE: us-central1-a
     
 jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     outputs:
-#       image_tag: ${{ steps.docker_build.outputs.image }}
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      image_tag: ${{ steps.docker_build.outputs.image }}
     
-#     steps:
-#     - uses: actions/checkout@v2
-#     - name: Use Node.js
-#       uses: actions/setup-node@v3
-#       with:
-#         node-version: 14.x
-#     - run: npm install
-#     - run: npm run build --if-present
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 14.x
+    - run: npm install
+    - run: npm run build --if-present
     
-#     - name: Build Docker Image3
-#       uses: mr-smithers-excellent/docker-build-push@v6
-#       with:
-#         image: onyeechris/time-api
-#         registry: docker.io
-#         username: ${{ secrets.DOCKER_USERNAME }}
-#         password: ${{ secrets.DOCKER_PASSWORD }}
-#         tags: main-${{ github.sha }}
+    - name: Build Docker Image3
+      uses: mr-smithers-excellent/docker-build-push@v6
+      with:
+        image: onyeechris/time-api
+        registry: docker.io
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        tags: main-${{ github.sha }}
       
-#     - name: Set output image tag
-#       id: set_output
-#       run: echo "::set-output name=image_tag::main-${{ github.sha }}"
+    - name: Set output image tag
+      id: set_output
+      run: echo "::set-output name=image_tag::main-${{ github.sha }}"
 
 
 
   deploy:
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
@@ -66,6 +67,9 @@ jobs:
           gcloud config set compute/zone ${{ secrets.GCP_ZONE }}
           gcloud container clusters get-credentials ${{ secrets.GCP_CLUSTER_NAME }}
 
+      - name: Replace image tag in deployment file
+        run: sed -i 's|onyeechris/time-api:latest|onyeechris/time-api:${{ env.IMAGE_TAG }}|' time-api.yaml
+      
       - name: Deploy apps
         run: |
           kubectl apply -f time-api.yaml
