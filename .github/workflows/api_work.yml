@@ -4,10 +4,6 @@ on:
   push:
     branches: [ "main" ] 
 
-# env:
-#   PROJECT_ID: supple-defender-349711
-#   CLUSTER_NAME: autopilot-cluster-1
-#   ZONE: us-central1-a
     
 jobs:
   build:
@@ -76,5 +72,5 @@ jobs:
       - name: Deploy apps
         run: |
           kubectl apply -f time-api.yaml
-          kubectl apply -f nodeport.yaml
+          #kubectl apply -f nodeport.yaml
 
